@@ -1,0 +1,13 @@
+file_format: "1"
+id: kestrel_v1
+name: Kestrel V1
+type: shield
+url: https://github.com/mjfortier/zmk-shields
+requires: [pro_micro]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+siblings:
+  - kestrel_v1_left
+  - kestrel_v1_right
