@@ -15,6 +15,17 @@
 #define BT4         BT_SEL 4
 
 / {
+    behaviors {
+        pht: positional_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <1>;    // <---[[the W key]]
+        };
+    };
     keymap {
         compatible = "zmk,keymap";
 
@@ -25,12 +36,12 @@
 // -----------------------------------------------------------------------------------------
 // | BKSP |  Q  |  W  |  F  |  P  |  B  |                    |  J  |  L   |  U  |  Y  |  '  | DEL  |
 // | SHFT |  A  |  R  |  S  |  T  |  G  |                    |  M  |  N   |  E  |  I  |  O  | SHFT |
-// | TAB  |  Z  |  X  |  C  |  D  |  V  | MUTE |       |     |  K  |  H   |  ,  |  .  |  /  |  ;   |
-//                    | GUI | LWR | SPC |                    | ENT | RSE  | ALT |
+// | TAB  |CTL/Z|ALT/X|  C  |  D  |  V  | MUTE |       |     |  K  |  H   |  ,  |ALT/.|CTL//|  ;   |
+//                    | GUI | LWR | ENT |                    | SPC | RSE  | ALT |
    &kp BSPC  &kp Q &kp W &kp F &kp P &kp B                      &kp J &kp L  &kp U     &kp Y   &kp SQT  &kp DEL
    &kp LSHFT &kp A &kp R &kp S &kp T &kp G                      &kp M &kp N  &kp E     &kp I   &kp O    &kp RSHFT
-   &kp TAB   &kp Z &kp X &kp C &kp D &kp V &kp C_MUTE   &kp A   &kp K &kp H  &kp COMMA &kp DOT &kp FSLH &kp SEMI
-                  &kp LGUI &mo 1 &kp SPACE                      &kp RET &mo 2 &kp RALT
+   &kp TAB   &mt LCTRL Z &mt LALT X &kp C &kp D &kp V &kp C_MUTE   &kp A   &kp K &kp H  &kp COMMA &mt RALT DOT &mt RCTRL FSLH &kp SEMI
+                  &kp LGUI &mo 1 &kp RET                        &kp SPACE &mo 2 &kp RALT
             
             >;
             
