@@ -11,3 +11,5 @@ features:
 siblings:
   - kestrel_v1_left
   - kestrel_v1_right
+  - kestrel_v1_dongle
+

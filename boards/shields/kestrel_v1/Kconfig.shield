@@ -3,3 +3,6 @@ config SHIELD_KESTREL_V1_LEFT
 
 config SHIELD_KESTREL_V1_RIGHT
     def_bool $(shields_list_contains,kestrel_v1_right)
+
+config SHIELD_KESTREL_V1_DONGLE
+    def_bool $(shields_list_contains,kestrel_v1_dongle)
