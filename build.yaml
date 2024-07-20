@@ -22,5 +22,5 @@ include:
     shield: kestrel_v1_left nice_view_adapter nice_view
   - board: nice_nano_v2
     shield: kestrel_v1_right nice_view_adapter nice_view
-  - board: nice_nano_v2
+  - board: nrf52840_mdk_usb_dongle
     shield: kestrel_v1_dongle
