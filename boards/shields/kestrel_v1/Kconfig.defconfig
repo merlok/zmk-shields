@@ -3,8 +3,11 @@ if SHIELD_KESTREL_V1_DONGLE
 config ZMK_KEYBOARD_NAME
     default "Kestrel V1"
 
-config ZMK_SPLIT_ROLE_CENTRAL
+config ZMK_SPLIT_BLE_ROLE_CENTRAL
     default y
+	
+config ZMK_USB
+	default y
 
 endif
 
@@ -12,5 +15,8 @@ if SHIELD_KESTREL_V1_LEFT || SHIELD_KESTREL_V1_RIGHT || SHIELD_KESTREL_V1_DONGLE
 
 config ZMK_SPLIT
     default y
+
+config ZMK_BLE
+	default y
 
 endif
