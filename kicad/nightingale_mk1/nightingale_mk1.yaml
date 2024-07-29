@@ -1,0 +1,341 @@
+points:
+  key:
+    padding: cy
+  zones:
+    matrix:
+      rows:
+        bottom:
+          row_net: row_1
+        home:
+          row_net: row_2
+        top:
+          row_net: row_3
+      columns:
+        outer:
+          key:
+            col_net: col_0
+          rows.bottom.skip: true
+        pinkie:
+          key:
+            spread: cx
+            col_net: col_1
+            stagger: 0.25*cy
+        ring:
+          key:
+            spread: cx
+            col_net: col_2
+            origin: [-15, -15]
+            stagger: 0.75*cy
+        middle:
+          key:
+            spread: cx
+            col_net: col_3
+            stagger: 0.28*cy
+        index:
+          key:
+            spread: cx
+            col_net: col_4
+            stagger: -0.6*cy
+        inner:
+          key:
+            spread: cx
+            col_net: col_5
+            origin: [0, -15]
+            stagger: -0.25*cy
+    thumbfan:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-.7*cx, -1.8*cy]
+      rows:
+        fan:
+          row_net: row_0
+      columns:
+        near:
+          key:
+            col_net: col_2
+            rotate: 90
+            splay: -5
+        home:
+          key:
+            col_net: col_3
+            spread: cx
+            rotate: 90
+            splay: -5
+            origin: [-9, -9]
+        far:
+          key:
+            col_net: col_4
+            spread: cx
+            stagger: -0.3cy
+            splay: -5
+            origin: [-9, -9]
+
+outlines:
+  keycap_1_5u:
+    - what: rectangle
+      where: meta.name ~ /thumbfan_near|thumbfan_home/
+      size: [1.5*cx - 0.5, 1*cy - 0.5]
+  keycaps:
+    - what: rectangle
+      where: meta.name ~ /matrix|thumbfan_far_fan/
+      size: [1cx - 0.5, 1cy - 0.5] # Choc keycaps are 17.5 x 16.5
+  raw:
+    - what: rectangle
+      where: true
+      size: [cx, cy]
+
+    - what: polygon
+      points:
+        - ref: matrix_inner_top
+          shift: [1.8cx, 0.545cy]
+        - ref: matrix_inner_top
+          shift: [1.8cx, -4.04cy]
+        - ref: thumbfan_far_fan
+          shift: [0.545cx, 0.545cy]
+        - ref: thumbfan_far_fan
+          shift: [0.545cx, -0.545cy]
+        - ref: thumbfan_home_fan
+          shift: [-0.8175cx, -0.5cy]
+        - ref: thumbfan_near_fan
+          shift: [-0.8175cx, -0.5cy]
+        - ref: thumbfan_near_fan
+          shift: [-0.8175cx, 0.545cy]
+        - ref: thumbfan_near_fan
+          shift: [0.cx, 0.545cy]
+        - ref: matrix_pinkie_bottom
+          shift: [1.9cx, -0.545cy]
+        - ref: matrix_pinkie_bottom
+          shift: [-0.545cx, -0.545cy]
+        - ref: matrix_outer_home
+          shift: [0.455cx, -0.545cy]
+        - ref: matrix_outer_home
+          shift: [-0.545cx, -0.545cy]
+        - ref: matrix_outer_top
+          shift: [-0.545cx, -0.545cy]
+        - ref: matrix_outer_top
+          shift: [-0.545cx, 0.545cy]
+        - ref: matrix_outer_top
+          shift: [0.455cx, 0.545cy]
+        - ref: matrix_pinkie_top
+          shift: [-0.545cx, 0.545cy]
+        - ref: matrix_pinkie_top
+          shift: [0.455cx, 0.545cy]
+        - ref: matrix_ring_top
+          shift: [-0.545cx, 0.545cy]
+        - ref: matrix_ring_top
+          shift: [0.455cx, 0.545cy]
+        - ref: matrix_middle_top
+          shift: [-0.545cx, 0.545cy]
+        - ref: matrix_middle_top
+          shift: [0.545cx, 0.545cy]
+        - ref: matrix_index_top
+          shift: [-0.455cx, 0.545cy]
+        - ref: matrix_index_top
+          shift: [0.545cx, 0.545cy]
+        - ref: matrix_inner_top
+          shift: [-0.455cx, 0.545cy]
+        - ref: matrix_inner_top
+          shift: [1.8cx, 0.545cy]
+
+  cutout:
+    - what: outline
+      name: raw
+      fillet: 0.3
+
+  cutout_keycaps:
+    - what: outline
+      name: cutout
+      operation: stack
+    - what: outline
+      name: keycaps
+      operation: stack
+    - what: outline
+      name: keycap_1_5u
+      operation: stack
+
+pcbs:
+  whisper:
+    outlines:
+      board:
+        outline: cutout
+      keycaps:
+        outline: keycaps
+        layer: Eco1.User
+      keycaps_1_5u:
+        outline: keycap_1_5u
+        layer: Eco1.User
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: true
+          hotswap: true
+          from: "{{col_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [ 0, -4 ]
+          rotate: 180
+      promicro:
+        what: promicro
+        where:
+          ref: matrix_inner_bottom
+          shift: [21.07, 24.728]
+          rotate: -90
+        params:
+          orientation: up
+          P1: CS
+          P2: SDA
+          P3: SCL
+          P4: col_0
+          P5: col_1
+          P6: col_2
+          P7: col_3
+          P8: col_4
+          P9: col_5
+          P10: row_0
+          P14: row_2
+          P15: row_3
+          P16: row_1
+          P18: P18
+          P19: P19
+          P20: ENCA
+          P21: ENCB
+      slider:
+        where:
+          ref: matrix_inner_top
+          shift: [21, 7]
+        what: slider
+        params:
+          from: RAW
+          to: JST
+      jst:
+        what: jstph_rev
+        where:
+          ref: matrix_inner_top
+          shift: [21.3, 2]
+        params:
+          pos: JST
+          neg: GND
+      rotary:
+        what: rotary
+        where:
+          ref: matrix_inner_bottom
+          shift: [23, -9]
+          rotate: 180
+        params:
+          from: col_5
+          to: r_diode
+          A: ENCA
+          B: ENCB
+          C: GND
+      rotary_diode:
+        what: diode
+        where:
+          ref: matrix_inner_bottom
+          shift: [14, -5]
+          rotate: -90
+        params:
+          from: r_diode
+          to: row_0
+      via1:
+        what: via
+        where: true
+        params:
+          net: "{{col_net}}"
+        adjust:
+          shift: [ 3.2, 5.95 ]
+      via2:
+        what: via
+        where: true
+        params:
+          net: "{{colrow}}"
+        adjust:
+          shift: [ -8.35, 3.79 ]
+      jf_cs:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [24, -9]
+          rotate: -90
+        params:
+          side: "F"
+          from: CS
+          to: J_pad4
+      jb_sda:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [24, -9]
+          rotate: -90
+        params:
+          side: "B"
+          from: SDA
+          to: J_pad4
+      jf_gnd:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [22, -9]
+          rotate: -90
+        params:
+          side: "F"
+          from: GND
+          to: J_pad3
+      jb_scl:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [22, -9]
+          rotate: -90
+        params:
+          side: "B"
+          from: SCL
+          to: J_pad3
+      jf_scl:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [20, -9]
+          rotate: -90
+        params:
+          side: "F"
+          from: SCL
+          to: J_pad2
+      jb_gnd:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [20, -9]
+          rotate: -90
+        params:
+          side: "B"
+          from: GND
+          to: J_pad2
+      jf_sda:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [18, -9]
+          rotate: -90
+        params:
+          side: "F"
+          from: SDA
+          to: J_pad1
+      jb_cs:
+        what: jumper
+        where:
+          ref: matrix_inner_top
+          shift: [18, -9] 
+          rotate: -90
+        params:
+          side: "B"
+          from: CS
+          to: J_pad1
