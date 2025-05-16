@@ -18,7 +18,7 @@ The `kicad` directory includes all necessary files to modify and fabricate the k
 
 ### Firmware
 
-The firmware for the keyboard is managed using ZMK, a flexible firmware specifically designed for custom keyboards. The firmware compilation is handled using Zephyr and automated through GitHub Actions. Simply push a commit and GHA will produce the files which can be flashed as per [ZMK's flashing instructions](https://zmk.dev/docs/development/build-flash).
+The   firmware for the keyboard is managed using ZMK, a flexible firmware specifically designed for custom keyboards. The firmware compilation is handled using Zephyr and automated through GitHub Actions. Simply push a commit and GHA will produce the files which can be flashed as per [ZMK's flashing instructions](https://zmk.dev/docs/development/build-flash).
 
 
 ## Keyboard Designs
